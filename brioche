@@ -338,7 +338,7 @@ set-default-source cras-source
 PULSEAUDIOCFG
 echo \"autospawn = yes\" > ~/.config/pulse/client.conf
 CRAS_BRANCH=\$(git ls-remote https://chromium.googlesource.com/chromiumos/third_party/adhd | grep refs/heads/release | tail -1 | awk '{print \$2}' | cut -d\"/\" -f3)
-git clone -b \$CRAS_BRANCH https://chromium.googlesource.com/chromiumos/third_party/adhd
+git clone -b \$CRAS_BRANCH https://chromium.googlesource.com/chromiumos/third_party/adhd --depth=1
 cd ~/adhd
 GTEST_LIBS=\"libgtest.a libgtest_main.a\" GTEST_CFLAGS=\"-L$CONTAINER_LIBDIR\" CFLAGS=\"-m32 -DCRAS_SOCKET_FILE_DIR=/var/run/cras\" AM_CFLAGS=\"-Wno-error\" make
 sudo cp ./cras/src/.libs/*.so $CONTAINER_ALSALIBDIR/
@@ -347,13 +347,13 @@ sudo cp ./cras/src/.libs/cras_test_client /usr/bin/
 cd ..
 rm -rf ~/adhd
 SOMMELIER_BRANCH=\$(git ls-remote https://chromium.googlesource.com/chromiumos/containers/sommelier.git | grep refs/tags/ | tail -1 | awk '{print \$2}' | cut -d\"/\" -f3)
-git clone -b \$SOMMELIER_BRANCH https://chromium.googlesource.com/chromiumos/containers/sommelier.git
+git clone -b \$SOMMELIER_BRANCH https://chromium.googlesource.com/chromiumos/containers/sommelier.git --depth=1
 cd ~/sommelier
 make
 sudo cp sommelier /usr/bin/
 cd ..
 rm -rf ~/sommelier
-git clone https://github.com/apenwarr/xclipsync.git -b master
+git clone https://github.com/apenwarr/xclipsync.git -b master --depth=1
 cd ~/xclipsync
 sudo cp ./xclipfrom /usr/bin/
 sudo chmod 0755 /usr/bin/xclipfrom
